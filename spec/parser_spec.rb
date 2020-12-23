@@ -3,31 +3,39 @@
 require 'parser'
 
 RSpec.describe LogsParser::Parser do
-  subject { described_class.new(path, adapter, presenter).call }
+  subject { described_class.new(path, adapter, printers).call }
 
-  let(:adapter) { double('Adapter') }
-  let(:adapter_instance) { instance_double('Adapter') }
+  let(:adapter) { double(LogsParser::Adapters::FileAdapter) }
+  let(:adapter_instance) { instance_double(LogsParser::Adapters::FileAdapter) }
 
-  let(:presenter) { double('Presenter') }
-  let(:presenter_instance) { instance_double('Presenter') }
+  let(:printers) { [printer] }
+
+  let(:printer) { double(LogsParser::Printers::VisitsPrinter) }
+  let(:printer_instance) { instance_double(LogsParser::Printers::VisitsPrinter) }
 
   describe '#call' do
-    context 'when path exists' do
+    context 'with invalid path' do
       let(:path) { 'some_path' }
 
-      before do
-        allow(adapter).to   receive(:new).and_return(adapter_instance)
-        allow(presenter).to receive(:new).and_return(presenter_instance)
+      it 'calls `adapter`' do
+        allow(adapter).to receive(:new).and_return(adapter_instance)
 
-        allow(adapter_instance).to   receive(:call)
-        allow(presenter_instance).to receive(:call)
-      end
-
-      it 'calls `adapter` and `presenter`' do
-        expect(adapter).to receive(:new)
-        expect(presenter).to receive(:new)
         expect(adapter_instance).to receive(:call)
-        expect(presenter_instance).to receive(:call)
+
+        subject
+      end
+    end
+
+    context 'with valid path' do
+      let(:path) { File.expand_path('fixtures/valid_file.log', RSPEC_ROOT) }
+
+      it 'calls `adapter` and `printer`' do
+        allow(adapter).to receive(:new).and_return(adapter_instance)
+        allow(printer).to receive(:new).and_return(printer_instance)
+        allow(adapter_instance).to receive(:call).and_return([])
+
+        expect(adapter_instance).to receive(:call)
+        expect(printer_instance).to receive(:call)
 
         subject
       end
