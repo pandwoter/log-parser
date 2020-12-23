@@ -15,7 +15,7 @@ RSpec.describe LogsParser::Entries::Statistic do
         {
           addr: '172.168.1.1',
           path: '/some_path',
-          valid?: []
+          errors: []
         }
       end
 
@@ -23,7 +23,7 @@ RSpec.describe LogsParser::Entries::Statistic do
         {
           addr: '172.168.1.2',
           path: '/some_path',
-          valid?: []
+          errors: []
         }
       end
 
@@ -59,7 +59,7 @@ RSpec.describe LogsParser::Entries::Statistic do
         {
           addr: 'xxxx',
           path: '123',
-          valid?: ['some error', 'error']
+          errors: ['some error', 'error']
         }
       end
 
