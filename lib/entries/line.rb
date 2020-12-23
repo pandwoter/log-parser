@@ -22,7 +22,7 @@ module LogsParser
         {
           addr: addr,
           path: path,
-          valid?: validate
+          errors: validate
         }
       end
 
@@ -37,7 +37,7 @@ module LogsParser
       # Becouse example file do not contains any valid IP addr, validation is commented here
       # IN ORDER TEST TO PASS WE SCHOULD UNCOMENT IT!!!
       def addr_valid?(res)
-        res << "Provided IP addr isn't valid!" unless true # ip_validation_lib.valid? addr
+        res << "Provided IP addr isn't valid!" unless ip_validation_lib.valid? addr
       end
 
       def path_addr_present?(res)

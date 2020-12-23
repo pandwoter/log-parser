@@ -13,9 +13,9 @@ module LogsParser
       end
 
       def add(line)
-        addr, path, valid = line.values_at(:addr, :path, :valid?)
+        addr, path, errors = line.values_at(:addr, :path, :errors)
 
-        if valid.empty?
+        if errors.empty?
           process_valid_line(addr, path)
         else
           process_invalid_line(line)
