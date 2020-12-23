@@ -8,7 +8,6 @@ group :development do
   gem 'pry-byebug'
   gem 'reek'
   gem 'rubocop'
-  gem 'solargraph'
 end
 
 group :test do
