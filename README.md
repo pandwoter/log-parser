@@ -1,4 +1,5 @@
-# Logs parser
+# Logs parser 
+Tests execution status: [![Ruby Actions Status](https://github.com/pandwoter/log-parser/workflows/Ruby/badge.svg)](https://github.com/{userName}/{repoName}/actions)
 
 ## Task:
 
